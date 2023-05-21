@@ -9,7 +9,6 @@ import 'package:podcats_player/view/screens/feeds.dart';
 import 'package:podcats_player/view/screens/menu.dart';
 import 'package:podcats_player/view/screens/settings.dart';
 import 'package:podcats_player/view/theme/themes/default.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:podcats_player/service/feed_service/feed_service.dart';
 import 'package:podcats_player/view/components/menu_button.dart';
 import 'package:podcats_player/view/components/search_text_field.dart';
+import 'package:podcats_player/view/screens/feed_view.dart';
 
 typedef MenuDrawerDetector = bool Function();
 
@@ -73,6 +75,38 @@ class _MenuState extends State<Menu> {
   void _didSearchFor(String text) {
     _closeDrawer();
     print(text);
+
+    final searchUri = Uri.tryParse(text);
+    if (searchUri != null && searchUri.hasAbsolutePath) {
+      const FeedService().getFrom(searchUri).then(
+            (feed) => showGeneralDialog(
+              context: context,
+              pageBuilder: (context, __, ___) => TapRegion(
+                onTapOutside: (_) {
+                  Navigator.of(context).pop();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(50),
+                  child: Dialog(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1,
+                        ),
+                      ),
+                      child: FeedView(
+                        feed: feed,
+                        displayEpisodeDownloadButton: false,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+    }
   }
 
   void _didPressFeeds() {

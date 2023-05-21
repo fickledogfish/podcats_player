@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podcats_player/data/feed.dart';
 import 'package:podcats_player/service/feed_service/feed_service.dart';
-import 'package:podcats_player/view/feed_view.dart';
+import 'package:podcats_player/view/screens/feed_view.dart';
 
 class FeedsPage extends StatefulWidget {
   const FeedsPage({super.key, required this.title});

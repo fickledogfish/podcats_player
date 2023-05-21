@@ -9,9 +9,12 @@ import 'package:podcats_player/view/formatter/time_formatter.dart';
 class FeedView extends StatelessWidget {
   final Feed feed;
 
+  final bool displayEpisodeDownloadButton;
+
   const FeedView({
     super.key,
     required this.feed,
+    this.displayEpisodeDownloadButton = true,
   });
 
   @override
@@ -29,7 +32,10 @@ class FeedView extends StatelessWidget {
               indent: 30,
               endIndent: 30,
             ),
-            itemBuilder: (_, index) => _FeedItemView(item: feed.items[index]),
+            itemBuilder: (_, index) => _FeedItemView(
+              item: feed.items[index],
+              displayDownloadButton: displayEpisodeDownloadButton,
+            ),
           ),
         ],
       );
@@ -85,11 +91,14 @@ class _FeedItemView extends StatelessWidget {
   final TimeFormatter timeFormatter;
   final FileSizeFormatter fileSizeFormatter;
 
+  final bool displayDownloadButton;
+
   const _FeedItemView({
     required this.item,
     this.dateFormatter = const DateFormatter(),
     this.timeFormatter = const TimeFormatter(),
     this.fileSizeFormatter = const FileSizeFormatter(),
+    this.displayDownloadButton = true,
   });
 
   @override
@@ -122,10 +131,11 @@ class _FeedItemView extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            onPressed: _didPressDownload,
-            icon: const Icon(Icons.download_outlined),
-          ),
+          if (displayDownloadButton)
+            IconButton(
+              onPressed: _didPressDownload,
+              icon: const Icon(Icons.download_outlined),
+            ),
         ],
       ),
     );
